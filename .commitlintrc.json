@@ -1,0 +1,3 @@
+{
+	"extends": ["@bristom/commitlint-config"]
+}
