@@ -1,16 +1,12 @@
 # quiz_app
 
-A new Flutter project.
+An app created with the guidance of a [Udemy Course](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/). It's the app built from the first module and I have added some of my styles on it.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To run the project you just have to clone it and run:
 
-A few resources to get you started if this is your first Flutter project:
+- `flutter pub get`
+- `flutter run`
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+And the app should run on you connected device or emulator, you're good to go! Any doubts just open an issue on this repo and we can work it out.
