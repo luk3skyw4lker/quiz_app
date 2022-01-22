@@ -36,36 +36,40 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
   var _totalScore = 0;
 
-  void _pressButton(int score) {
+  void _answerQuestion(int score) {
     setState(() {
-      // if (_questionIndex == _questions.length - 1) {
-      //   _questionIndex = 0;
-      // } else {
-      _questionIndex = _questionIndex + 1;
-      // }
-
       _totalScore += score;
+      _questionIndex += 1;
+    });
+  }
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: const Text('Personality Quiz'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Personality Quiz'),
+        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                questionText:
+                    _questions[_questionIndex]['questionText'] as String,
+                answers: _questions[_questionIndex]['answers']
+                    as List<Map<String, Object>>,
+                answerQuestion: _answerQuestion,
+              )
+            : Result(
+                finalScore: _totalScore,
+                resetQuiz: _resetQuiz,
+              ),
       ),
-      body: _questionIndex < _questions.length
-          ? Quiz(
-              questionText:
-                  _questions[_questionIndex]['questionText'] as String,
-              answers: _questions[_questionIndex]['answers']
-                  as List<Map<String, Object>>,
-              answerQuestion: _pressButton,
-            )
-          : Result(
-              finalScore: _totalScore,
-            ),
-    ));
+    );
   }
 }
