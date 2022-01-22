@@ -17,12 +17,14 @@ class AnswerButton extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
+        height: 75,
         margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-        child: ElevatedButton(
+        child: OutlinedButton(
           onPressed: () => onPress(answerScore),
           child: Text(buttonText),
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blue)),
+          style: OutlinedButton.styleFrom(
+              side: const BorderSide(width: 1.0, color: Colors.blue),
+              backgroundColor: Colors.white),
         ),
       ),
     );
