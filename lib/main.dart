@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _questions = [
+  final _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
       'answers': ['Black', 'Red', 'Blue', 'Yellow'],
@@ -39,23 +39,27 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Personality Quiz'),
-        ),
-        body: Column(
-          children: [
-            Question(
-              question: _questions[_questionIndex]['questionText'] as String,
-            ),
-            ...(_questions[_questionIndex]['answers'] as List<String>)
-                .map(
-                  (answer) =>
-                      AnswerButton(onPress: _pressButton, buttonText: answer),
+          appBar: AppBar(
+            title: const Text('Personality Quiz'),
+          ),
+          body: _questionIndex < _questions.length
+              ? Column(
+                  children: [
+                    Question(
+                      question:
+                          _questions[_questionIndex]['questionText'] as String,
+                    ),
+                    ...(_questions[_questionIndex]['answers'] as List<String>)
+                        .map(
+                          (answer) => AnswerButton(
+                              onPress: _pressButton, buttonText: answer),
+                        )
+                        .toList()
+                  ],
                 )
-                .toList()
-          ],
-        ),
-      ),
+              : const Center(
+                  child: Text('Quiz answered, thanks!'),
+                )),
     );
   }
 }
