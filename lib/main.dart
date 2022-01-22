@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './answer_button.dart';
-import './question.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(const MyApp());
 
@@ -16,50 +16,56 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red', 'Blue', 'Yellow'],
+      'answers': [
+        {'text': 'Yellow', 'score': 1},
+        {'text': 'Black', 'score': 10},
+        {'text': 'Blue', 'score': 2},
+        {'text': 'Red', 'score': 5},
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Lion', 'Snake', 'Elephant', 'Mouse'],
+      'answers': [
+        {'text': 'Elephant', 'score': 10},
+        {'text': 'Snake', 'score': 20},
+        {'text': 'Mouse', 'score': 5},
+        {'text': 'Lion', 'score': 15},
+      ],
     }
   ];
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _pressButton() {
+  void _pressButton(int score) {
     setState(() {
-      if (_questionIndex == _questions.length - 1) {
-        _questionIndex = 0;
-      } else {
-        _questionIndex = _questionIndex + 1;
-      }
+      // if (_questionIndex == _questions.length - 1) {
+      //   _questionIndex = 0;
+      // } else {
+      _questionIndex = _questionIndex + 1;
+      // }
+
+      _totalScore += score;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Personality Quiz'),
-          ),
-          body: _questionIndex < _questions.length
-              ? Column(
-                  children: [
-                    Question(
-                      question:
-                          _questions[_questionIndex]['questionText'] as String,
-                    ),
-                    ...(_questions[_questionIndex]['answers'] as List<String>)
-                        .map(
-                          (answer) => AnswerButton(
-                              onPress: _pressButton, buttonText: answer),
-                        )
-                        .toList()
-                  ],
-                )
-              : const Center(
-                  child: Text('Quiz answered, thanks!'),
-                )),
-    );
+        home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Personality Quiz'),
+      ),
+      body: _questionIndex < _questions.length
+          ? Quiz(
+              questionText:
+                  _questions[_questionIndex]['questionText'] as String,
+              answers: _questions[_questionIndex]['answers']
+                  as List<Map<String, Object>>,
+              answerQuestion: _pressButton,
+            )
+          : Result(
+              finalScore: _totalScore,
+            ),
+    ));
   }
 }
